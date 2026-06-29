@@ -1,14 +1,19 @@
 import javax.swing.JOptionPane;
 
 //Ejercicio de investigacion grupo 2 
+// Elaborado por:
+//Sharon Olivares
+//Alejandro Alvarado
 
 public class Principal {
 
     public static void main(String[] args) {
-
-        Automovil autos [] = new Automovil[0];
-        int contador = 0
+          
+        Automovil autos [] = new Automovil[3];
+        int contador = 0;
         int opcion=0;
+        //prueba
+        int pos = 0;
 
         Automovil obj = new Automovil();
         while (opcion <= 5){
