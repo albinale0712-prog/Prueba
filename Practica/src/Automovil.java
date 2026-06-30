@@ -1,4 +1,4 @@
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class Automovil {
 
@@ -8,134 +8,139 @@ public class Automovil {
     private double precio;
     private String tipoTransmision;
 
-    public void ingresarAutomovil(int pos, Automovil autos) {
+    // Constructor vacío
+    public Automovil() {
+    }
+
+    // Constructor con parámetros
+    public Automovil(int id, String marca, String modelo,
+                     double precio, String tipoTransmision) {
+        this.id = id;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.precio = precio;
+        this.tipoTransmision = tipoTransmision;
+    }
+
+    public void ingresarAutomovil(Automovil autos[], int pos) {
         if (pos >= autos.length) {
             System.out.println("Vector lleno");
             return;
         }
         setId(Integer.parseInt(JOptionPane.showInputDialog("Digite el ID")));
         setMarca(JOptionPane.showInputDialog("Digite la marca"));
-        setModelo(JOptionPane.showMessageDialog(null,"Digite el modelo"););
+        setModelo(JOptionPane.showInputDialog("Digite el modelo")); // CORREGIDO
         setPrecio(Double.parseDouble(JOptionPane.showInputDialog("Digite el precio")));
         setTipoTransmision(JOptionPane.showInputDialog("Digite el tipo de transmisión"));
-        autos[pos] = new Automovil(getId(),getMarca(),getPrecio(), getModelo(), getTipoTransmision());
+        autos[pos] = new Automovil(getId(), getMarca(), getModelo(), getPrecio(), getTipoTransmision());
     }
 
     public void ordenarAutos(Automovil autos[], int contador) {
-        for (int i = 0; i < contador - 1; i++)
+        for (int i = 0; i < contador; i++) {
             for (int j = i + 1; j < contador; j++) {
                 if (autos[i].getPrecio() < autos[j].getPrecio()) {
                     Automovil temp = autos[i];
                     autos[i] = autos[j];
-                    autos[i] = temp;
+                    autos[j] = temp; // CORREGIDO: antes era autos[i] = temp
                 }
             }
-        System.out.println("Vector ordenado correctamente");
+        }
+        System.out.println("Vector ordenado correctamente"); // CORREGIDO: temp no existe aquí
+    }
 
-
-        public int posicionMasCaro(Automovil autos[], int contador) {
-            if (contador == 0) {
-                return -1;
-            }
-
-            int posicion = 0;
-            double mayor = autos[0].getPrecio();
-
-            for (int i = 1; i < contador; i++)
-                if (autos[i].getPrecio() > mayor) {
-                    mayor = autos[i].getPrecio();
-                    posicion = i;
-                }
-
-            return i;
+    public int posicionMasCaro(Automovil autos[], int contador) {
+        if (contador == 0) {
+            return -1;
         }
 
-        public void imprimirAutos(Automovil autos[], int contador) {
-            if (contador == 0) {
-                System.out.println("No hay automóviles registrados");
-                return;
-            }
+        int posicion = 0;
+        double mayor = autos[0].getPrecio();
 
-            for (int i = 0; i < contador; i++) {
+        for (int i = 1; i < contador; i++) {
+            if (autos[i].getPrecio() > mayor) {
+                mayor = autos[i].getPrecio();
+                posicion = i;
+            }
+        }
+
+        return posicion; // CORREGIDO: antes era return i;
+    }
+
+    public void imprimirAutos(Automovil autos[], int contador) {
+        if (contador == 0) {
+            System.out.println("No hay automóviles registrados");
+            return;
+        }
+
+        for (int i = 0; i < contador; i++) {
+            System.out.println("ID: " + autos[i].getId());
+            System.out.println("Marca: " + autos[i].getMarca()); // CORREGIDO: sin \n extra
+            System.out.println("Modelo: " + autos[i].getModelo()); // CORREGIDO: sin \n extra
+            System.out.println("Precio: ₡" + autos[i].getPrecio());
+            System.out.println("Transmisión: " + autos[i].getTipoTransmision());
+            System.out.println("----------------------\n");
+        }
+    }
+
+    public void imprimirMayores35000000(Automovil autos[], int contador) {
+        boolean enc = false;
+
+        for (int i = 0; i < contador; i++) {
+            if (autos[i].getPrecio() > 35000000) { // CORREGIDO: autos[i] en lugar de autos
                 System.out.println("ID: " + autos[i].getId());
-                System.out.println("\nMarca: " + autos[i].getMarca());
-                System.out.println("\nModelo: " + autos[i].getModelo());
-                System.out.println("\nPrecio: ₡" + autos[i].getPrecio());
-                System.out.println("\nTransmisión: " + autos[i].getTipoTransmision());
-                System.out.println("\n----------------------\n");
+                System.out.println("Marca: " + autos[i].getMarca());
+                System.out.println("Modelo: " + autos[i].getModelo());
+                System.out.println("Precio: ₡" + autos[i].getPrecio());
+                System.out.println("Transmisión: " + autos[i].getTipoTransmision());
+                System.out.println("----------------------\n");
+                enc = true;
             }
         }
 
-        public void imprimirMayores35000000(Automovil autos[], int contador) {
-            boolean enc=false;
-
-            for (int i = 0; i < contador; i++)
-                if (autos.getPrecio() > 35000000) {
-                    System.out.println("ID: " + autos[i].getId());
-                    System.out.println("\nMarca: " + autos[i].getMarca());
-                    System.out.println("\nModelo: " + autos[i].getModelo());
-                    System.out.println("\nPrecio: ₡" + autos[i].getPrecio());
-                    System.out.println("\nTransmisión: " + autos[i].getTipoTransmision());
-                    System.out.println("\n----------------------\n")
-                    enc=true;
-                }
-
-            if (enc==false)
-                System.out.println("No existen automóviles con precio mayor a ₡35.000.000");
+        if (!enc) {
+            System.out.println("No existen automóviles con precio mayor a ₡35.000.000");
         }
+    }
 
-    public Automovil {
-        }
+    // GET Y SET
 
-    public Automovil(int id, String marca, String modelo,
-        double precio, String tipoTransmision) {
+    public int getId() {
+        return id;
+    }
 
-            this.id = id;
-            this.marca = marca;
-            this.modelo = modelo;
-            this.precio = precio;
-            this.tipoTransmision = tipoTransmision;
-        }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-        // GET Y SET
+    public String getMarca() {
+        return marca;
+    }
 
-        public int getId() {
-            return id;
-        }
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
 
-        public void setId(int id) {
-            this.id = id;
-        }
+    public String getModelo() {
+        return modelo;
+    }
 
-        public String getMarca() {
-            return marca;
-        }
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
 
-        public void setMarca(String marca) {
-            this.marca = marca;
-        }
+    public double getPrecio() {
+        return precio;
+    }
 
-        public String getModelo() {
-            return modelo;
-        }
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
 
-        public void setModelo(String modelo) {
-            this.modelo = modelo;
-        }
+    public String getTipoTransmision() {
+        return tipoTransmision;
+    }
 
-        public double getPrecio() {
-            return precio;
-        }
-
-        public void setPrecio(double precio) {
-            this.precio = precio;
-        }
-
-        public String getTipoTransmision() {
-            return tipoTransmision;
-        }
-
-        public void setTipoTransmision(String tipoTransmision) {
-            this.tipoTransmision = tipoTransmision;
-
-        }
+    public void setTipoTransmision(String tipoTransmision) {
+        this.tipoTransmision = tipoTransmision;
+    }
+}
